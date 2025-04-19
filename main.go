@@ -6,9 +6,12 @@ import (
 	"os"
 )
 
-// func input() {
+func getUserInput() string {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
 
-// }
+	return scanner.Text()
+}
 
 func main() {
 	const (
@@ -32,10 +35,7 @@ func main() {
 		case Create:
 			fmt.Println("Enter task name:")
 
-			scanner := bufio.NewScanner(os.Stdin)
-			scanner.Scan()
-			input := scanner.Text()
-
+			input := getUserInput()
 			slice = append(slice, input)
 
 		case Read:
@@ -46,9 +46,7 @@ func main() {
 		case Update:
 			fmt.Println("Enter task name to update: ")
 
-			scanner := bufio.NewScanner(os.Stdin)
-			scanner.Scan()
-			currentInput := scanner.Text()
+			currentInput := getUserInput()
 
 			matched := false
 			for i := range slice {
@@ -56,9 +54,7 @@ func main() {
 					matched = true
 					fmt.Println("Enter new task name:")
 
-					scanner := bufio.NewScanner(os.Stdin)
-					scanner.Scan()
-					newInput := scanner.Text()
+					newInput := getUserInput()
 
 					if len(newInput) > 3 {
 						slice[i] = newInput
@@ -69,18 +65,14 @@ func main() {
 				}
 			}
 
-			if matched {
-				_ = matched
-			} else {
+			if !matched {
 				fmt.Println("Invalid name. Please try again.")
 			}
 
 		case Delete:
 			fmt.Println("Enter task name to remove: ")
 
-			scanner := bufio.NewScanner(os.Stdin)
-			scanner.Scan()
-			deleteInput := scanner.Text()
+			deleteInput := getUserInput()
 
 			index := -1
 			for j := range slice {
