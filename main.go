@@ -87,11 +87,15 @@ func main() {
 			}
 
 			oldTaskName := slice[index]
-			slice = append(slice[:index], slice[index+1:]...)
+			slice = delete(slice, index)
 			fmt.Printf("Removed task #%d with name \"%s\" successfully!\n", index, oldTaskName)
 
 		default:
 			fmt.Println("Invalid command! Please, try again!")
 		}
 	}
+}
+
+func delete(s []string, i int) []string {
+	return append(s[:i], s[i+1:]...)
 }
